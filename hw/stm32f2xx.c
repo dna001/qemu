@@ -156,10 +156,10 @@ void stm32f2xx_init(
     qdev_init_nofail(flash_dev);
     sysbus_mmio_map(sysbus_from_qdev(flash_dev), 0, 0x08000000);
 
+    /* RCC - reset and clock control */
     DeviceState *rcc_dev = qdev_create(NULL, "stm32f2xx_rcc");
     qdev_prop_set_uint32(rcc_dev, "osc_freq", osc_freq);
     qdev_prop_set_uint32(rcc_dev, "osc32_freq", osc32_freq);
-    //stm32_init_periph(rcc_dev, STM32_RCC, 0x40021000, pic[STM32_RCC_IRQ]);
     stm32_init_periph(rcc_dev, STM32_RCC, 0x40023800, pic[STM32_RCC_IRQ]);
 
     DeviceState **gpio_dev = (DeviceState **)g_malloc0(sizeof(DeviceState *) * STM32_GPIO_COUNT);
@@ -168,7 +168,7 @@ void stm32f2xx_init(
         gpio_dev[i] = qdev_create(NULL, "stm32f2xx_gpio");
         QDEV_PROP_SET_PERIPH_T(gpio_dev[i], "periph", periph);
         qdev_prop_set_ptr(gpio_dev[i], "stm32f2xx_rcc", rcc_dev);
-        stm32_init_periph(gpio_dev[i], periph, 0x40010800 + (i * 0x400), NULL);
+        stm32_init_periph(gpio_dev[i], periph, 0x40020000 + (i * 0x400), NULL);
         stm32_gpio[i] = (Stm32Gpio *)gpio_dev[i];
     }
 
