@@ -22,11 +22,9 @@
 #include "stm32f2xx.h"
 #include "exec-memory.h"
 
-
 /* DEFINITIONS */
 
 /* COMMON */
-
 void stm32f2xx_hw_warn(const char *fmt, ...)
 {
     va_list ap;
@@ -43,11 +41,7 @@ void stm32f2xx_hw_warn(const char *fmt, ...)
     va_end(ap);
 }
 
-
-
-
 /* PERIPHERALS */
-
 const char *stm32f2xx_periph_name_arr[] =
     {"RCC",
      "GPIOA",

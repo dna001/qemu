@@ -59,10 +59,6 @@
 void stm32f2xx_hw_warn(const char *fmt, ...)
     __attribute__ ((__format__ (__printf__, 1, 2)));
 
-
-
-
-
 /* PERIPHERALS - COMMON */
 /* Indexes used for accessing a GPIO array */
 #define STM32_GPIOA_INDEX 0
@@ -86,50 +82,60 @@ typedef int32_t stm32_periph_t;
 #define DEFINE_PROP_PERIPH_T DEFINE_PROP_INT32
 #define QDEV_PROP_SET_PERIPH_T qdev_prop_set_int32
 
-#define STM32_PERIPH_UNDEFINED -1
-#define STM32_RCC 0
-#define STM32_GPIOA 1
-#define STM32_GPIOB 2
-#define STM32_GPIOC 3
-#define STM32_GPIOD 4
-#define STM32_GPIOE 5
-#define STM32_GPIOF 6
-#define STM32_GPIOG 7
-#define STM32_UART1 9
-#define STM32_UART2 10
-#define STM32_UART3 11
-#define STM32_UART4 12
-#define STM32_UART5 13
-#define STM32_ADC1 14
-#define STM32_ADC2 15
-#define STM32_ADC3 16
-#define STM32_DAC 17
-#define STM32_TIM1 18
-#define STM32_TIM2 19
-#define STM32_TIM3 20
-#define STM32_TIM4 21
-#define STM32_TIM5 22
-#define STM32_TIM6 23
-#define STM32_TIM7 24
-#define STM32_TIM8 25
-#define STM32_BKP 26
-#define STM32_PWR 27
-#define STM32_I2C1 28
-#define STM32_I2C2 29
-#define STM32_I2S2 30
-#define STM32_I2S3 31
-#define STM32_WWDG 32
-#define STM32_CAN1 33
-#define STM32_CAN2 34
-#define STM32_CAN 35
-#define STM32_USB 36
-#define STM32_SPI1 37
-#define STM32_SPI2 38
-#define STM32_SPI3 39
-#define STM32_EXTI 40
-#define STM32_SDIO 41
-#define STM32_FSMC 42
-#define STM32_PERIPH_COUNT 43
+enum stm32_peripherals {
+   STM32_PERIPH_UNDEFINED = -1,
+   STM32_RCC,
+   STM32_GPIOA,
+   STM32_GPIOB,
+   STM32_GPIOC,
+   STM32_GPIOD,
+   STM32_GPIOE,
+   STM32_GPIOF,
+   STM32_GPIOG,
+   STM32_GPIOH,
+   STM32_GPIOI,
+   STM32_UART1,
+   STM32_UART2,
+   STM32_UART3,
+   STM32_UART4,
+   STM32_UART5,
+   STM32_UART6,
+   STM32_ADC1,
+   STM32_ADC2,
+   STM32_ADC3,
+   STM32_DAC,
+   STM32_TIM1,
+   STM32_TIM2,
+   STM32_TIM3,
+   STM32_TIM4,
+   STM32_TIM5,
+   STM32_TIM6,
+   STM32_TIM7,
+   STM32_TIM8,
+   STM32_TIM9,
+   STM32_TIM10,
+   STM32_TIM11,
+   STM32_TIM12,
+   STM32_TIM13,
+   STM32_TIM14,
+   STM32_BKP,
+   STM32_PWR,
+   STM32_I2C1,
+   STM32_I2C2,
+   STM32_I2C3,
+   STM32_WWDG,
+   STM32_CAN1,
+   STM32_CAN2,
+   STM32_CAN,
+   STM32_USB,
+   STM32_SPI1,
+   STM32_SPI2,
+   STM32_SPI3,
+   STM32_EXTI,
+   STM32_SDIO,
+   STM32_FSMC,
+   STM32_PERIPH_COUNT,
+};
 
 const char *stm32f2xx_periph_name(stm32_periph_t periph);
 
