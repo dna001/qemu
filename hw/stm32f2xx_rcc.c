@@ -618,6 +618,10 @@ static void stm32_rcc_RCC_AHB1ENR_write(Stm32Rcc* s, uint32_t new_value,
                             RCC_AHB1ENR_GPIOFEN_BIT);
     stm32_rcc_periph_enable(s, new_value, init, STM32_GPIOG,
                             RCC_AHB1ENR_GPIOGEN_BIT);
+    stm32_rcc_periph_enable(s, new_value, init, STM32_GPIOH,
+                            RCC_AHB1ENR_GPIOHEN_BIT);
+    stm32_rcc_periph_enable(s, new_value, init, STM32_GPIOI,
+                            RCC_AHB1ENR_GPIOIEN_BIT);
 
     s->RCC_AHB1ENR = new_value & 0x3F3208FF;
 }
@@ -1160,6 +1164,22 @@ static void stm32_rcc_init_clk(Stm32Rcc *s)
                                                    s->HCLK,
                                                    NULL);
     s->PERIPHCLK[STM32_GPIOG] = clktree_create_clk("GPIOG",
+                                                   1,
+                                                   1,
+                                                   false,
+                                                   CLKTREE_NO_MAX_FREQ,
+                                                   0,
+                                                   s->HCLK,
+                                                   NULL);
+    s->PERIPHCLK[STM32_GPIOH] = clktree_create_clk("GPIOH",
+                                                   1,
+                                                   1,
+                                                   false,
+                                                   CLKTREE_NO_MAX_FREQ,
+                                                   0,
+                                                   s->HCLK,
+                                                   NULL);
+    s->PERIPHCLK[STM32_GPIOI] = clktree_create_clk("GPIOI",
                                                    1,
                                                    1,
                                                    false,
