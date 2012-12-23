@@ -57,7 +57,6 @@ const char *stm32f2xx_periph_name_arr[] =
      "GPIOE",
      "GPIOF",
      "GPIOG",
-     "AFIO",
      "UART1",
      "UART2",
      "UART3",
@@ -122,7 +121,6 @@ static Stm32Uart *stm32_create_uart_dev(
         stm32_periph_t periph,
         DeviceState *rcc_dev,
         DeviceState **gpio_dev,
-        DeviceState *afio_dev,
         target_phys_addr_t addr,
         qemu_irq irq)
 {
@@ -130,7 +128,6 @@ static Stm32Uart *stm32_create_uart_dev(
     QDEV_PROP_SET_PERIPH_T(uart_dev, "periph", periph);
     qdev_prop_set_ptr(uart_dev, "stm32f2xx_rcc", rcc_dev);
     qdev_prop_set_ptr(uart_dev, "stm32f2xx_gpio", gpio_dev);
-    qdev_prop_set_ptr(uart_dev, "stm32f2xx_afio", afio_dev);
     stm32_init_periph(uart_dev, periph, addr, irq);
     return (Stm32Uart *)uart_dev;
 }
@@ -187,14 +184,9 @@ void stm32f2xx_init(
     sysbus_connect_irq(exti_busdev, 8, pic[STM32_RTCAlarm_IRQ]);
     sysbus_connect_irq(exti_busdev, 9, pic[STM32_OTG_FS_WKUP_IRQ]);
 
-    DeviceState *afio_dev = qdev_create(NULL, "stm32f2xx_afio");
-    qdev_prop_set_ptr(afio_dev, "stm32f2xx_rcc", rcc_dev);
-    qdev_prop_set_ptr(afio_dev, "stm32f2xx_exti", exti_dev);
-    stm32_init_periph(afio_dev, STM32_AFIO, 0x40010000, NULL);
-
-    stm32_uart[STM32_UART1_INDEX] = stm32_create_uart_dev(STM32_UART1, rcc_dev, gpio_dev, afio_dev, 0x40013800, pic[STM32_UART1_IRQ]);
-    stm32_uart[STM32_UART2_INDEX] = stm32_create_uart_dev(STM32_UART2, rcc_dev, gpio_dev, afio_dev, 0x40004400, pic[STM32_UART2_IRQ]);
-    stm32_uart[STM32_UART3_INDEX] = stm32_create_uart_dev(STM32_UART3, rcc_dev, gpio_dev, afio_dev, 0x40004800, pic[STM32_UART3_IRQ]);
-    stm32_uart[STM32_UART4_INDEX] = stm32_create_uart_dev(STM32_UART4, rcc_dev, gpio_dev, afio_dev, 0x40004c00, pic[STM32_UART4_IRQ]);
-    stm32_uart[STM32_UART5_INDEX] = stm32_create_uart_dev(STM32_UART5, rcc_dev, gpio_dev, afio_dev, 0x40005000, pic[STM32_UART5_IRQ]);
+    stm32_uart[STM32_UART1_INDEX] = stm32_create_uart_dev(STM32_UART1, rcc_dev, gpio_dev, 0x40013800, pic[STM32_UART1_IRQ]);
+    stm32_uart[STM32_UART2_INDEX] = stm32_create_uart_dev(STM32_UART2, rcc_dev, gpio_dev, 0x40004400, pic[STM32_UART2_IRQ]);
+    stm32_uart[STM32_UART3_INDEX] = stm32_create_uart_dev(STM32_UART3, rcc_dev, gpio_dev, 0x40004800, pic[STM32_UART3_IRQ]);
+    stm32_uart[STM32_UART4_INDEX] = stm32_create_uart_dev(STM32_UART4, rcc_dev, gpio_dev, 0x40004c00, pic[STM32_UART4_IRQ]);
+    stm32_uart[STM32_UART5_INDEX] = stm32_create_uart_dev(STM32_UART5, rcc_dev, gpio_dev, 0x40005000, pic[STM32_UART5_IRQ]);
 }

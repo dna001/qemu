@@ -37,8 +37,8 @@ obj-y += stm32_afio.o stm32_exti.o
 obj-y += stm32_p103.o
 
 obj-y += stm32f2xx.o stm32f2xx_flash.o
-obj-y += stm32f2xx_rcc.o stm32f2xx_gpio.o stm32f2xx_uart.o
-obj-y += stm32f2xx_afio.o stm32f2xx_exti.o
+obj-y += stm32f2xx_rcc.o stm32f2xx_gpio.o
+obj-y += stm32f2xx_uart.o stm32f2xx_exti.o
 obj-y += stm3220g_eval.o
 
 obj-y := $(addprefix ../,$(obj-y))

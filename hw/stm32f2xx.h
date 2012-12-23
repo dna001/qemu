@@ -95,7 +95,6 @@ typedef int32_t stm32_periph_t;
 #define STM32_GPIOE 5
 #define STM32_GPIOF 6
 #define STM32_GPIOG 7
-#define STM32_AFIO 8
 #define STM32_UART1 9
 #define STM32_UART2 10
 #define STM32_UART3 11
@@ -194,11 +193,7 @@ const char *stm32f2xx_periph_name(stm32_periph_t periph);
 
 
 
-
-/* AFIO */
-typedef struct Stm32Afio Stm32Afio;
-
-/* AFIO Peripheral Mapping */
+/* AFIO Peripheral Mapping  TODO: TO BE REMOVED */
 #define STM32_USART1_NO_REMAP 0
 #define STM32_USART1_REMAP 1
 
@@ -208,14 +203,6 @@ typedef struct Stm32Afio Stm32Afio;
 #define STM32_USART3_NO_REMAP 0
 #define STM32_USART3_PARTIAL_REMAP 1
 #define STM32_USART3_FULL_REMAP 3
-
-/* Gets the pin mapping for the specified peripheral.  Will return one
- * of the mapping values defined above. */
-uint32_t stm32f2xx_afio_get_periph_map(Stm32Afio *s, int32_t periph_num);
-
-
-
-
 
 /* EXTI */
 typedef struct Stm32Exti Stm32Exti;
@@ -301,11 +288,7 @@ typedef struct Stm32Uart Stm32Uart;
  * board's pin mapping should be passed in.  This will be used to
  * verify the correct mapping is configured by the software.
  */
-void stm32f2xx_uart_connect(Stm32Uart *s, CharDriverState *chr,
-                        uint32_t afio_board_map);
-
-
-
+void stm32f2xx_uart_connect(Stm32Uart *s, CharDriverState *chr, uint32_t map);
 
 /* STM32 MICROCONTROLLER - GENERAL */
 typedef struct Stm32 Stm32;

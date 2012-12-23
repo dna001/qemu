@@ -1165,16 +1165,6 @@ static void stm32_rcc_init_clk(Stm32Rcc *s)
                                                    0,
                                                    s->HCLK,
                                                    NULL);
-    /* todo: remove AFIO module */
-    s->PERIPHCLK[STM32_AFIO] = clktree_create_clk("AFIO",
-                                                  1,
-                                                  1,
-                                                  false,
-                                                  CLKTREE_NO_MAX_FREQ,
-                                                  0,
-                                                  s->PCLK2,
-                                                  NULL);
-
     s->PERIPHCLK[STM32_UART1] = clktree_create_clk("UART1",
                                                    1,
                                                    1,
