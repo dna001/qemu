@@ -917,11 +917,13 @@ static void stm32_rcc_reset(DeviceState *dev)
     Stm32Rcc *s = FROM_SYSBUS(Stm32Rcc, sysbus_from_qdev(dev));
 
     stm32_rcc_RCC_CR_write(s, 0x00000083, true);
+    stm32_rcc_RCC_PLLCFGR_write(s, 0x24003010, true);
     stm32_rcc_RCC_CFGR_write(s, 0x00000000, true);
+    stm32_rcc_RCC_AHB1ENR_write(s, 0x00000000, true);
     stm32_rcc_RCC_APB2ENR_write(s, 0x00000000, true);
     stm32_rcc_RCC_APB1ENR_write(s, 0x00000000, true);
     stm32_rcc_RCC_BDCR_write(s, 0x00000000, true);
-    stm32_rcc_RCC_CSR_write(s, 0x0c000000, true);
+    stm32_rcc_RCC_CSR_write(s, 0x0E000000, true);
 }
 
 /* IRQ handler to handle updates to the HCLK frequency.
