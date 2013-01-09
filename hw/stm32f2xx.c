@@ -72,6 +72,7 @@ const char *stm32f2xx_periph_name_arr[] =
      "PWR",
      "I2C1",
      "I2C2",
+     "I2C3",
      "I2S1",
      "I2S2",
      "WWDG",

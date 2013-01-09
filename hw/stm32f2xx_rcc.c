@@ -272,6 +272,31 @@
 #define RCC_APB2ENR_TIM8EN_BIT    1
 #define RCC_APB2ENR_TIM1EN_BIT    0
 
+/* APB1LPENR */
+#define RCC_APB1LPENR_DACLPEN_BIT    29
+#define RCC_APB1LPENR_PWRLPEN_BIT    28
+#define RCC_APB1LPENR_CAN2LPEN_BIT   26
+#define RCC_APB1LPENR_CAN1LPEN_BIT   25
+#define RCC_APB1LPENR_I2C3LPEN_BIT   23
+#define RCC_APB1LPENR_I2C2LPEN_BIT   22
+#define RCC_APB1LPENR_I2C1LPEN_BIT   21
+#define RCC_APB1LPENR_UART5LPEN_BIT  20
+#define RCC_APB1LPENR_UART4LPEN_BIT  19
+#define RCC_APB1LPENR_USART3LPEN_BIT 18
+#define RCC_APB1LPENR_USART2LPEN_BIT 17
+#define RCC_APB1LPENR_SPI3LPEN_BIT   15
+#define RCC_APB1LPENR_SPI2LPEN_BIT   14
+#define RCC_APB1LPENR_WWDGLPEN_BIT   11
+#define RCC_APB1LPENR_TIM14LPEN_BIT   8
+#define RCC_APB1LPENR_TIM13LPEN_BIT   7
+#define RCC_APB1LPENR_TIM12LPEN_BIT   6
+#define RCC_APB1LPENR_TIM7LPEN_BIT    5
+#define RCC_APB1LPENR_TIM6LPEN_BIT    4
+#define RCC_APB1LPENR_TIM5LPEN_BIT    3
+#define RCC_APB1LPENR_TIM4LPEN_BIT    2
+#define RCC_APB1LPENR_TIM3LPEN_BIT    1
+#define RCC_APB1LPENR_TIM2LPEN_BIT    0
+
 /* BDCR */
 #define RCC_BDCR_BDRST_BIT    16
 #define RCC_BDCR_RTCEN_BIT    15
@@ -335,6 +360,7 @@ struct Stm32Rcc {
    uint32_t RCC_AHB1ENR;
    uint32_t RCC_APB1ENR;
    uint32_t RCC_APB2ENR;
+   uint32_t RCC_APB1LPENR;
    uint32_t RCC_PLLCFGR;
    uint32_t RCC_APB1RSTR;
 
@@ -640,21 +666,25 @@ static void stm32_rcc_RCC_APB1ENR_write(Stm32Rcc *s, uint32_t new_value,
                            RCC_APB1ENR_CAN2EN_BIT);
    stm32_rcc_periph_enable(s, new_value, init, STM32_CAN1,
                            RCC_APB1ENR_CAN1EN_BIT);
+   */
    stm32_rcc_periph_enable(s, new_value, init, STM32_I2C3,
                            RCC_APB1ENR_I2C3EN_BIT);
    stm32_rcc_periph_enable(s, new_value, init, STM32_I2C2,
                            RCC_APB1ENR_I2C2EN_BIT);
    stm32_rcc_periph_enable(s, new_value, init, STM32_I2C1,
                            RCC_APB1ENR_I2C1EN_BIT);
+   /*
    stm32_rcc_periph_enable(s, new_value, init, STM32_UART5,
-                           RCC_APB1ENR_UART5EN_BIT);*/
+                           RCC_APB1ENR_UART5EN_BIT);
+   */
    stm32_rcc_periph_enable(s, new_value, init, STM32_UART4,
                            RCC_APB1ENR_UART4EN_BIT);
    stm32_rcc_periph_enable(s, new_value, init, STM32_UART3,
                            RCC_APB1ENR_USART3EN_BIT);
    stm32_rcc_periph_enable(s, new_value, init, STM32_UART2,
                            RCC_APB1ENR_USART2EN_BIT);
-   /*   stm32_rcc_periph_enable(s, new_value, init, STM32_SPI3,
+   /*
+   stm32_rcc_periph_enable(s, new_value, init, STM32_SPI3,
                            RCC_APB1ENR_SPI3EN_BIT);
    stm32_rcc_periph_enable(s, new_value, init, STM32_SPI2,
                            RCC_APB1ENR_USART2EN_BIT);
@@ -670,14 +700,15 @@ static void stm32_rcc_RCC_APB1ENR_write(Stm32Rcc *s, uint32_t new_value,
                            RCC_APB1ENR_TIM7EN_BIT);
    stm32_rcc_periph_enable(s, new_value, init, STM32_TIM6,
                            RCC_APB1ENR_TIM6EN_BIT);
-   stm32_rcc_periph_enable(s, new_value, init, STM32_TIM5,
-                           RCC_APB1ENR_TIM5EN_BIT);
    stm32_rcc_periph_enable(s, new_value, init, STM32_TIM4,
                            RCC_APB1ENR_TIM4EN_BIT);
    stm32_rcc_periph_enable(s, new_value, init, STM32_TIM3,
                            RCC_APB1ENR_TIM3EN_BIT);
+   */
+   stm32_rcc_periph_enable(s, new_value, init, STM32_TIM5,
+                           RCC_APB1ENR_TIM5EN_BIT);
    stm32_rcc_periph_enable(s, new_value, init, STM32_TIM2,
-   RCC_APB1ENR_TIM2EN_BIT);*/
+                           RCC_APB1ENR_TIM2EN_BIT);
 
    s->RCC_APB1ENR = new_value & 0x36FEC9FF;
 }
@@ -720,6 +751,25 @@ static void stm32_rcc_RCC_APB2ENR_write(Stm32Rcc *s, uint32_t new_value,
     s->RCC_APB2ENR = new_value & 0x00035f33;
 }
 
+/*-----------------------------------------------------------------------------
+  RCC APB1LPENR - Peripheral clock 1 low power enable register
+-----------------------------------------------------------------------------*/
+static void stm32_rcc_RCC_APB1LPENR_write(Stm32Rcc *s, uint32_t new_value,
+                                        bool init)
+{
+   stm32_rcc_periph_enable(s, new_value, init, STM32_I2C1,
+                           RCC_APB1LPENR_I2C1LPEN_BIT);
+   stm32_rcc_periph_enable(s, new_value, init, STM32_I2C2,
+                           RCC_APB1LPENR_I2C2LPEN_BIT);
+   stm32_rcc_periph_enable(s, new_value, init, STM32_I2C3,
+                           RCC_APB1LPENR_I2C3LPEN_BIT);
+   stm32_rcc_periph_enable(s, new_value, init, STM32_TIM2,
+                           RCC_APB1LPENR_TIM2LPEN_BIT);
+   stm32_rcc_periph_enable(s, new_value, init, STM32_TIM5,
+                           RCC_APB1LPENR_TIM5LPEN_BIT);
+
+  s->RCC_APB1LPENR = new_value & 0x3EFEC9FF;
+}
 
 /*-----------------------------------------------------------------------------
   RCC BDCR - Backup domain control register
@@ -807,8 +857,7 @@ static uint64_t stm32_rcc_readw(void *opaque, target_phys_addr_t offset)
        STM32_NOT_IMPL_REG(offset, 4);
        break;
     case RCC_APB1LPENR_OFFSET:
-       STM32_NOT_IMPL_REG(offset, 4);
-       break;
+       return s->RCC_APB1LPENR;
     case RCC_APB2LPENR_OFFSET:
        STM32_NOT_IMPL_REG(offset, 4);
        break;
@@ -867,6 +916,8 @@ static void stm32_rcc_writew(void *opaque, target_phys_addr_t offset,
     case RCC_APB1ENR_OFFSET:
        stm32_rcc_RCC_APB1ENR_write(s, value, false);
        break;
+    case RCC_APB1LPENR_OFFSET:
+       stm32_rcc_RCC_APB1LPENR_write(s, value, false);
     case RCC_BDCR_OFFSET:
        stm32_rcc_RCC_BDCR_write(s, value, false);
        break;
@@ -1227,6 +1278,46 @@ static void stm32_rcc_init_clk(Stm32Rcc *s)
                                                    0,
                                                    s->PCLK1,
                                                    NULL);
+    s->PERIPHCLK[STM32_TIM2] = clktree_create_clk("TIM2",
+                                                  1,
+                                                  1,
+                                                  false,
+                                                  CLKTREE_NO_MAX_FREQ,
+                                                  0,
+                                                  s->PCLK1,
+                                                  NULL);
+    s->PERIPHCLK[STM32_TIM5] = clktree_create_clk("TIM5",
+                                                  1,
+                                                  1,
+                                                  false,
+                                                  CLKTREE_NO_MAX_FREQ,
+                                                  0,
+                                                  s->PCLK1,
+                                                  NULL);
+    s->PERIPHCLK[STM32_I2C1] = clktree_create_clk("I2C1",
+                                                  1,
+                                                  1,
+                                                  false,
+                                                  CLKTREE_NO_MAX_FREQ,
+                                                  0,
+                                                  s->PCLK1,
+                                                  NULL);
+    s->PERIPHCLK[STM32_I2C2] = clktree_create_clk("I2C2",
+                                                  1,
+                                                  1,
+                                                  false,
+                                                  CLKTREE_NO_MAX_FREQ,
+                                                  0,
+                                                  s->PCLK1,
+                                                  NULL);
+    s->PERIPHCLK[STM32_I2C3] = clktree_create_clk("I2C3",
+                                                  1,
+                                                  1,
+                                                  false,
+                                                  CLKTREE_NO_MAX_FREQ,
+                                                  0,
+                                                  s->PCLK1,
+                                                  NULL);
 }
 
 /* rcc init */
