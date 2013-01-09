@@ -100,6 +100,7 @@ static void stm3220g_eval_init(ram_addr_t ram_size,
     struct stm3220g_eval* s;
     Stm32Gpio *stm32_gpio[STM32_GPIO_COUNT];
     Stm32Uart *stm32_uart[STM32_UART_COUNT];
+    Stm32Tim  *stm32_tim[STM32_TIM_COUNT];
 
     s = (struct stm3220g_eval*) g_malloc0(sizeof(struct stm3220g_eval));
 
@@ -108,6 +109,7 @@ static void stm3220g_eval_init(ram_addr_t ram_size,
                kernel_filename,
                stm32_gpio,
                stm32_uart,
+               stm32_tim,
                8000000,
                32768);
 

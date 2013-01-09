@@ -76,6 +76,10 @@ void stm32f2xx_hw_warn(const char *fmt, ...)
 #define STM32_UART4_INDEX 3
 #define STM32_UART5_INDEX 4
 
+/* Indexes used for accessing a TIM array */
+#define STM32_TIM2_INDEX 0
+#define STM32_TIM5_INDEX 1
+
 /* Used for uniquely identifying a peripheral */
 typedef int32_t stm32_periph_t;
 
@@ -196,6 +200,9 @@ const char *stm32f2xx_periph_name(stm32_periph_t periph);
 #define STM32_OTG_FS_WKUP_IRQ 42
 #define STM32_ETH_WKUP_IRQ 62
 
+#define STM32_TIM2_IRQ 28
+#define STM32_TIM5_IRQ 50
+
 
 
 
@@ -296,6 +303,11 @@ typedef struct Stm32Uart Stm32Uart;
  */
 void stm32f2xx_uart_connect(Stm32Uart *s, CharDriverState *chr, uint32_t map);
 
+/* TIM */
+#define STM32_TIM_COUNT 2
+
+typedef struct Stm32Tim Stm32Tim;
+
 /* STM32 MICROCONTROLLER - GENERAL */
 typedef struct Stm32 Stm32;
 
@@ -307,6 +319,7 @@ void stm32f2xx_init(
             const char *kernel_filename,
             Stm32Gpio **stm32_gpio,
             Stm32Uart **stm32_uart,
+            Stm32Tim **stm32_tim,
             uint32_t osc_freq,
             uint32_t osc32_freq);
 

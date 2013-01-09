@@ -127,6 +127,19 @@ static Stm32Uart *stm32_create_uart_dev(
     return (Stm32Uart *)uart_dev;
 }
 
+static Stm32Tim *stm32_create_tim_dev(
+        stm32_periph_t periph,
+        DeviceState *rcc_dev,
+        target_phys_addr_t addr,
+        qemu_irq irq)
+{
+    DeviceState *tim_dev = qdev_create(NULL, "stm32f2xx_tim");
+    QDEV_PROP_SET_PERIPH_T(tim_dev, "periph", periph);
+    qdev_prop_set_ptr(tim_dev, "stm32f2xx_rcc", rcc_dev);
+    stm32_init_periph(tim_dev, periph, addr, irq);
+    return (Stm32Tim *)tim_dev;
+}
+
 
 void stm32f2xx_init(
             ram_addr_t flash_size,
@@ -134,6 +147,7 @@ void stm32f2xx_init(
             const char *kernel_filename,
             Stm32Gpio **stm32_gpio,
             Stm32Uart **stm32_uart,
+            Stm32Tim **stm32_tim,
             uint32_t osc_freq,
             uint32_t osc32_freq)
 {
@@ -184,4 +198,7 @@ void stm32f2xx_init(
     stm32_uart[STM32_UART3_INDEX] = stm32_create_uart_dev(STM32_UART3, rcc_dev, gpio_dev, 0x40004800, pic[STM32_UART3_IRQ]);
     stm32_uart[STM32_UART4_INDEX] = stm32_create_uart_dev(STM32_UART4, rcc_dev, gpio_dev, 0x40004c00, pic[STM32_UART4_IRQ]);
     stm32_uart[STM32_UART5_INDEX] = stm32_create_uart_dev(STM32_UART5, rcc_dev, gpio_dev, 0x40005000, pic[STM32_UART5_IRQ]);
+    
+    stm32_tim[STM32_TIM2_INDEX] = stm32_create_tim_dev(STM32_TIM2, rcc_dev, 0x40000000, pic[STM32_TIM2_IRQ]);
+    stm32_tim[STM32_TIM5_INDEX] = stm32_create_tim_dev(STM32_TIM5, rcc_dev, 0x40000C00, pic[STM32_TIM5_IRQ]);
 }
